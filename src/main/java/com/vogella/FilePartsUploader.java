@@ -19,7 +19,7 @@ public class FilePartsUploader {
             while ((line = br.readLine()) != null) {
                 lines.add(line);
                 if (lines.stream().mapToLong(String::length).sum() > partSize) {
-                    lines.sort(Comparator.naturalOrder()); // сортируем часть файла в памяти
+                    lines.sort(Comparator.naturalOrder());
                     String chunkFile = generatePartFileName(inputFile);
                     try (BufferedWriter bw = new BufferedWriter(new FileWriter(chunkFile))) {
                         for (String l : lines) {
