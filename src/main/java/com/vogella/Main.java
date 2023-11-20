@@ -16,9 +16,9 @@ public class Main {
     }
 
     public static void externalSort(String inputFile, String outputFile, long memoryLimit) throws IOException {
-        long partsCount = memoryLimit / 2;
+        long partSize = memoryLimit / 2;
 
-        fileParts = filePartsReader.upload(inputFile, partsCount);
+        fileParts = filePartsReader.upload(inputFile, partSize);
 
         PriorityQueue<BufferedReader> sortedFileParts = filePartsCombiner.combine(fileParts);
         
