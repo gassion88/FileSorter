@@ -6,9 +6,8 @@ import java.util.Comparator;
 import java.util.List;
 
 public class FilePartsReader {
-    public List<String> upload(String inputFile, long memoryLimit) {
+    public List<String> splitToParts(String inputFile, long memoryLimit) {
         List<String> filePartsNames = new ArrayList<>();
-        long partSize = memoryLimit / 2;
 
         try (BufferedReader br = new BufferedReader(new FileReader(inputFile))) {
             String line;
@@ -16,7 +15,7 @@ public class FilePartsReader {
             List<String> lines = new ArrayList<>();
             while ((line = br.readLine()) != null) {
                 lines.add(line);
-                if (lines.stream().mapToLong(String::length).sum() > partSize) {
+                if (lines.stream().mapToLong(String::length).sum() > memoryLimit) {
                     String filePartName = createFilePart(inputFile, lines, filePartsNames.size());
                     writeToFilePart(filePartName, lines);
                     filePartsNames.add(filePartName);
