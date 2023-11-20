@@ -36,14 +36,15 @@ public class FilePartsReader {
 
     private void generatePartFile(String inputFile, List<String> lines) throws IOException {
         partLinesSort(lines);
-        String chunkFile = generatePartFileName(inputFile);
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(chunkFile))) {
-            for (String l : lines) {
-                bw.write(l);
+        String partFile = generatePartFileName(inputFile);
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(partFile))) {
+            for (String line : lines) {
+                bw.write(line);
                 bw.newLine();
             }
         }
-        parts.add(chunkFile);
+        parts.add(partFile);
     }
 
     private static void partLinesSort(List<String> lines) {

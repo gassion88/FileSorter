@@ -13,6 +13,7 @@ public class FilePartsWriter {
             while (!sortedFile.isEmpty()) {
                 BufferedReader br = sortedFile.poll();
                 String line = br.readLine();
+
                 if (line != null) {
                     bw.write(line);
                     bw.newLine();
