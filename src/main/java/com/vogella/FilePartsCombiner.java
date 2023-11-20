@@ -21,10 +21,7 @@ public class FilePartsCombiner {
 
         for (String part : parts) {
             BufferedReader br = new BufferedReader(new FileReader(part));
-            String line = br.readLine();
-            if (line != null) {
                 heap.add(br);
-            }
         }
 
         return heap;
