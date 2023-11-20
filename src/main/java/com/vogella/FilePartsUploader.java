@@ -19,35 +19,35 @@ public class FilePartsUploader {
             while ((line = br.readLine()) != null) {
                 lines.add(line);
                 if (lines.stream().mapToLong(String::length).sum() > partSize) {
-                    lines.sort(Comparator.naturalOrder());
-                    String chunkFile = generatePartFileName(inputFile);
-                    try (BufferedWriter bw = new BufferedWriter(new FileWriter(chunkFile))) {
-                        for (String l : lines) {
-                            bw.write(l);
-                            bw.newLine();
-                        }
-                    }
-                    parts.add(chunkFile);
+                    generatePartFile(inputFile, lines);
                     lines.clear();
                 }
             }
 
             if (!lines.isEmpty()) {
-                lines.sort(Comparator.naturalOrder());
-                String chunkFile = generatePartFileName(inputFile);
-                try (BufferedWriter bw = new BufferedWriter(new FileWriter(chunkFile))) {
-                    for (String l : lines) {
-                        bw.write(l);
-                        bw.newLine();
-                    }
-                }
-                parts.add(chunkFile);
+                generatePartFile(inputFile, lines);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
         return parts;
+    }
+
+    private void generatePartFile(String inputFile, List<String> lines) throws IOException {
+        partLinesSort(lines);
+        String chunkFile = generatePartFileName(inputFile);
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(chunkFile))) {
+            for (String l : lines) {
+                bw.write(l);
+                bw.newLine();
+            }
+        }
+        parts.add(chunkFile);
+    }
+
+    private static void partLinesSort(List<String> lines) {
+        lines.sort(Comparator.naturalOrder());
     }
 
     private String generatePartFileName(String inputFile) {
