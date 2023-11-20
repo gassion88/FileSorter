@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class FilePartsUploader {
+public class FilePartsReader {
     long partSize = 0;
     List<String> parts = new ArrayList<>();
 

@@ -6,7 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.PriorityQueue;
 
-public class PartsToFileWriter {
+public class FilePartsWriter {
     public void write(PriorityQueue<BufferedReader> sortedFile, String outputFile){
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(outputFile))) {
 

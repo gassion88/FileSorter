@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.PriorityQueue;
 
 public class Main {
-    private static final FilePartsUploader filePartsUploader = new FilePartsUploader();
+    private static final FilePartsReader filePartsReader = new FilePartsReader();
     private static final FilePartsCombiner filePartsCombiner = new FilePartsCombiner();
-    private static final PartsToFileWriter partsToFileWriter = new PartsToFileWriter();
+    private static final FilePartsWriter filePartWriter = new FilePartsWriter();
     private static List<String> fileParts = new ArrayList<>();
 
     public static void main(String[] args) throws IOException {
@@ -16,18 +16,18 @@ public class Main {
     }
 
     public static void externalSort(String inputFile, String outputFile, long memoryLimit) throws IOException {
-        long part = memoryLimit / 2;
+        long partsCount = memoryLimit / 2;
 
-        fileParts = filePartsUploader.upload(inputFile, part);
+        fileParts = filePartsReader.upload(inputFile, partsCount);
 
-        PriorityQueue<BufferedReader> sortedParts = filePartsCombiner.combine(fileParts);
+        PriorityQueue<BufferedReader> sortedFileParts = filePartsCombiner.combine(fileParts);
         
-        partsToFileWriter.write(sortedParts, outputFile);
+        filePartWriter.write(sortedFileParts, outputFile);
 
-        removeTemproaryFiles(fileParts);
+        removeTemporaryFiles(fileParts);
     }
 
-    private static void removeTemproaryFiles(List<String> PARTS) {
+    private static void removeTemporaryFiles(List<String> PARTS) {
         for (String part : Main.fileParts) {
             new File(part).delete();
         }
