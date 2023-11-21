@@ -20,7 +20,7 @@ public class FilePartsCombiner {
 
         for (String part : parts) {
             BufferedReader br = new BufferedReader(new FileReader(part));
-                heap.add(br);
+            heap.add(br);
         }
 
         return heap;

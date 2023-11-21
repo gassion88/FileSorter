@@ -13,9 +13,11 @@ public class FilePartsReader {
             String line;
 
             List<String> lines = new ArrayList<>();
-            while ((line = br.readLine()) != null) {
+            while (((line = br.readLine()) != null) && !line.isEmpty()) {
                 lines.add(line);
-                if (lines.stream().mapToLong(String::length).sum() > memoryLimit) {
+                long linesSize = lines.stream().mapToLong(String::length).sum();
+
+                if (linesSize > memoryLimit) {
                     String filePartName = createFilePart(inputFile, lines, filePartsNames.size());
                     writeToFilePart(filePartName, lines);
                     filePartsNames.add(filePartName);
