@@ -2,7 +2,6 @@ package com.vogella;
 
 import java.io.*;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.PriorityQueue;
@@ -20,7 +19,7 @@ public class Main {
         List<String> fileParts;
         long partSize = memoryLimit / 2;
 
-        fileParts = filePartsReader.splitToParts(inputFile, 10);
+        fileParts = filePartsReader.splitToParts(inputFile, partSize);
 
         PriorityQueue<String> sortedFileParts = filePartsCombiner.combine(fileParts);
         
@@ -31,7 +30,8 @@ public class Main {
 
     private static void removeTemporaryFiles(List<String> parts) throws IOException {
         for (String part : parts) {
-            Files.deleteIfExists(Path.of(part));
+            //File file = Paths.get(part).toFile();
+            Files.delete(Paths.get(part));
         }
     }
 }

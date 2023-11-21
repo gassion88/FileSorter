@@ -12,12 +12,12 @@ public class FilePartsCombiner {
         PriorityQueue<String> heap = new PriorityQueue<>();
 
         for (String part : parts) {
-            BufferedReader br = new BufferedReader(new FileReader(part));
-            String line;
-            while ((line = br.readLine()) != null){
-                heap.add(line);
+            try(BufferedReader br = new BufferedReader(new FileReader(part))) {
+                String line;
+                while ((line = br.readLine()) != null){
+                    heap.add(line);
+                }
             }
-
         }
 
         return heap;

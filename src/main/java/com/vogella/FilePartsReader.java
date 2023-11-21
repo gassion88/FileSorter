@@ -62,6 +62,6 @@ public class FilePartsReader {
 
     private String generateFilePartName(String inputFile, int size) {
         String fileName = inputFile.split("\\.")[0];
-        return fileName + "_chunk" + size + ".txt";
+        return fileName + "_part" + size + ".txt";
     }
 }
