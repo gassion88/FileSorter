@@ -8,19 +8,16 @@ import java.util.List;
 import java.util.PriorityQueue;
 
 public class FilePartsCombiner {
-    public PriorityQueue<BufferedReader> combine(List<String> parts) throws IOException {
-        PriorityQueue<BufferedReader> heap = new PriorityQueue<>(Comparator.comparing(s -> {
-            try {
-                return s.readLine();
-            } catch (IOException e) {
-                e.printStackTrace();
-                return null;
-            }
-        }));
+    public PriorityQueue<String> combine(List<String> parts) throws IOException {
+        PriorityQueue<String> heap = new PriorityQueue<>();
 
         for (String part : parts) {
             BufferedReader br = new BufferedReader(new FileReader(part));
-            heap.add(br);
+            String line;
+            while ((line = br.readLine()) != null){
+                heap.add(line);
+            }
+
         }
 
         return heap;

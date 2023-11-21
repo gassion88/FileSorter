@@ -1,6 +1,9 @@
 package com.vogella;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.PriorityQueue;
 
@@ -17,18 +20,18 @@ public class Main {
         List<String> fileParts;
         long partSize = memoryLimit / 2;
 
-        fileParts = filePartsReader.splitToParts(inputFile, partSize);
+        fileParts = filePartsReader.splitToParts(inputFile, 10);
 
-        PriorityQueue<BufferedReader> sortedFileParts = filePartsCombiner.combine(fileParts);
+        PriorityQueue<String> sortedFileParts = filePartsCombiner.combine(fileParts);
         
         filePartWriter.write(sortedFileParts, outputFile);
 
         removeTemporaryFiles(fileParts);
     }
 
-    private static void removeTemporaryFiles(List<String> parts) {
+    private static void removeTemporaryFiles(List<String> parts) throws IOException {
         for (String part : parts) {
-            new File(part).delete();
+            Files.deleteIfExists(Path.of(part));
         }
     }
 }
