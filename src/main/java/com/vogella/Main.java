@@ -12,7 +12,7 @@ public class Main {
     private static final FilePartsWriter filePartWriter = new FilePartsWriter();
 
     public static void main(String[] args) throws IOException {
-        externalSort("c:/temp/first.txt", "c:/temp/second.txt", 1000000);
+        externalSort(args[0], args[1], 1000000);
     }
 
     public static void externalSort(String inputFile, String outputFile, long memoryLimit) throws IOException {
