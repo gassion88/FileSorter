@@ -1,19 +1,17 @@
 package com.vogella;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.PriorityQueue;
+import java.util.LinkedList;
 
 public class FilePartsWriter {
-    public void write(PriorityQueue<String> sortedFile, String outputFile){
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(outputFile))) {
+    public void write(LinkedList<String> lines, String outputFile){
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(outputFile, true))) {
 
-            while (!sortedFile.isEmpty()) {
-                String line = sortedFile.poll();
-                        bw.write(line);
-                        bw.newLine();
+            for (String line : lines) {
+                bw.write(line);
+                bw.newLine();
             }
         } catch (IOException e) {
             throw new RuntimeException(e);

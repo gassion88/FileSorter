@@ -18,7 +18,7 @@ public class FilePartsReader {
                 long linesSize = lines.stream().mapToLong(String::length).sum();
 
                 if (linesSize > memoryLimit) {
-                    String filePartName = createFilePart(inputFile, lines, filePartsNames.size());
+                    String filePartName = generateFilePartName(inputFile, filePartsNames.size());
                     writeToFilePart(filePartName, lines);
                     filePartsNames.add(filePartName);
 
@@ -27,7 +27,7 @@ public class FilePartsReader {
             }
 
             if (!lines.isEmpty()) {
-                String filePartName = createFilePart(inputFile, lines, filePartsNames.size());
+                String filePartName = generateFilePartName(inputFile, filePartsNames.size());
                 writeToFilePart(filePartName, lines);
                 filePartsNames.add(filePartName);
             }
@@ -36,13 +36,6 @@ public class FilePartsReader {
         }
 
         return filePartsNames;
-    }
-
-    private String createFilePart(String inputFile, List<String> lines, int size) {
-        String filePartName = generateFilePartName(inputFile, size);
-        filePartLinesSort(lines);
-
-        return filePartName;
     }
 
     private void writeToFilePart(String filePartName, List<String> lines) {
@@ -54,10 +47,6 @@ public class FilePartsReader {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private static void filePartLinesSort(List<String> lines) {
-        lines.sort(Comparator.naturalOrder());
     }
 
     private String generateFilePartName(String inputFile, int size) {
